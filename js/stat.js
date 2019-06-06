@@ -11,6 +11,8 @@ var DIALOG_HEIGHT = 270;
 var DIALOG_X = 100;
 var DIALOG_Y = 10;
 var GAP = 50;
+var BAR_MAX_HEIGHT = 150;
+var BAR_WIDTH = 40;
 
 var renderDialog = function (ctx, x0, y0, color) {
   ctx.fillStyle = color;
@@ -22,6 +24,23 @@ window.renderStatistics = function (ctx, names, times) {
   renderDialog(ctx, DIALOG_X, DIALOG_Y, 'white');
   ctx.fillStyle = 'black';
   ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', DIALOG_X + GAP, DIALOG_Y + GAP);
-  ctx.fillText('Список результатов:', DIALOG_X + GAP, DIALOG_Y + GAP * 1.5);
+  ctx.fillText('Ура вы победили!', DIALOG_X + GAP, DIALOG_Y + GAP * 0.5);
+  ctx.fillText('Список результатов:', DIALOG_X + GAP, DIALOG_Y + GAP);
+  var getMaxTime = function () {
+    var maxTime = Math.round(times[0]);
+    for (var i = 1; i < times.length; i++) {
+      if (times[i] > maxTime) {
+        maxTime = Math.round(times[i]);
+      }
+    }
+    return maxTime;
+  };
+  for (var i = 0; i < times.length; i++) {
+    ctx.fillRect(DIALOG_X + GAP + (BAR_WIDTH + GAP) * i, DIALOG_HEIGHT - GAP * 0.6 - (BAR_MAX_HEIGHT * times[i] / getMaxTime()), BAR_WIDTH, BAR_MAX_HEIGHT * times[i] / getMaxTime());
+  }
+  for (var j = 0; j < names.length; j++) {
+    ctx.fillStyle = 'black';
+    ctx.font = '16px PT Mono';
+    ctx.fillText(names[j], DIALOG_X + GAP + (BAR_WIDTH + GAP) * j, DIALOG_HEIGHT - 10);
+  }
 };
