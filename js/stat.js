@@ -1,5 +1,6 @@
 'use strict';
 
+var DIALOG_WIDTH = 420;
 var DIALOG_HEIGHT = 270;
 var DIALOG_X = 100;
 var DIALOG_Y = 10;
