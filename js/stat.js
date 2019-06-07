@@ -35,8 +35,26 @@ window.renderStatistics = function (ctx, names, times) {
     }
     return maxTime;
   };
+  var getYouIndex = function () {
+    var youIndex = 0;
+    for (var i = 1; i < names.length; i++) {
+      if (names[i] === 'Вы') {
+        youIndex = i;
+      }
+    }
+    return youIndex;
+  };
   for (var i = 0; i < times.length; i++) {
-    ctx.fillRect(DIALOG_X + GAP + (BAR_WIDTH + GAP) * i, DIALOG_HEIGHT - GAP * 0.6 - (BAR_MAX_HEIGHT * times[i] / getMaxTime()), BAR_WIDTH, BAR_MAX_HEIGHT * times[i] / getMaxTime());
+    ctx.fillStyle = 'black';
+    ctx.font = '16px PT Mono';
+    ctx.fillText('' + Math.round(times[i]), DIALOG_X + GAP + (BAR_WIDTH + GAP) * i, DIALOG_HEIGHT - GAP * 0.5 - 10 - (BAR_MAX_HEIGHT * times[i] / getMaxTime()));
+    var blueSaturate = Math.random() * 100;
+    console.log(blueSaturate);
+    ctx.fillStyle = 'hsl(240,' + blueSaturate + '%' + ', 50%)';
+    if (i === getYouIndex()) {
+      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+    }
+    ctx.fillRect(DIALOG_X + GAP + (BAR_WIDTH + GAP) * i, DIALOG_HEIGHT - GAP * 0.5 - (BAR_MAX_HEIGHT * times[i] / getMaxTime()), BAR_WIDTH, BAR_MAX_HEIGHT * times[i] / getMaxTime());
   }
   for (var j = 0; j < names.length; j++) {
     ctx.fillStyle = 'black';
