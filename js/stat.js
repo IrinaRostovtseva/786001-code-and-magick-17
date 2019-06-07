@@ -49,7 +49,6 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.font = '16px PT Mono';
     ctx.fillText('' + Math.round(times[i]), DIALOG_X + GAP + (BAR_WIDTH + GAP) * i, DIALOG_HEIGHT - GAP * 0.5 - 10 - (BAR_MAX_HEIGHT * times[i] / getMaxTime()));
     var blueSaturate = Math.random() * 100;
-    console.log(blueSaturate);
     ctx.fillStyle = 'hsl(240,' + blueSaturate + '%' + ', 50%)';
     if (i === getYouIndex()) {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
