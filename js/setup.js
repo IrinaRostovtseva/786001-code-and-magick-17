@@ -57,7 +57,6 @@ var setupOpen = function () {
   document.addEventListener('keydown', onSetupEscPress);
 };
 var setupClose = function () {
-  setupUserName.removeEventListener('focus', focusUserName);
   setup.classList.add('hidden');
 };
 
@@ -67,17 +66,16 @@ var onSetupEscPress = function (evt) {
   }
 };
 
-var onSetupEnterPress = function (evt) {
+setupOpenButton.addEventListener('click', setupOpen);
+setupOpenButton.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    setup.classList.remove('hidden');
+    setupOpen();
   }
   document.addEventListener('keydown', onSetupEscPress);
-};
-
-var focusUserName = function () {
-  setupClose = null;
-};
-setupUserName.addEventListener('focus', focusUserName);
-setupOpenButton.addEventListener('click', setupOpen);
-setupOpenButton.addEventListener('keydown', onSetupEnterPress);
+});
 setupCloseButton.addEventListener('click', setupClose);
+setupCloseButton.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    setupClose();
+  }
+});
