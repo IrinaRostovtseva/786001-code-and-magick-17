@@ -62,7 +62,11 @@ similarWizardBlock.classList.remove('hidden');
 var setupOpen = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onSetupEscPress);
+  if (setupUserName === document.activeElement) {
+    document.removeEventListener('keydown', onSetupEscPress);
+  }
 };
+
 var setupClose = function () {
   setup.classList.add('hidden');
 };
@@ -73,19 +77,31 @@ var onSetupEscPress = function (evt) {
   }
 };
 
+setupUserName.addEventListener('focus', function () {
+  document.removeEventListener('keydown', onSetupEscPress);
+});
+
+setupUserName.addEventListener('blur', function () {
+  document.addEventListener('keydown', onSetupEscPress);
+});
+
 setupOpenButton.addEventListener('click', setupOpen);
+
 setupOpenButton.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     setupOpen();
   }
   document.addEventListener('keydown', onSetupEscPress);
 });
+
 setupCloseButton.addEventListener('click', setupClose);
+
 setupCloseButton.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     setupClose();
   }
 });
+
 
 // Настройки мага
 var index = 1;
